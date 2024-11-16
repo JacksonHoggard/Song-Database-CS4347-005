@@ -8,7 +8,7 @@ const db = mysql.createConnection({
     host:"localhost",
     user:"root",
     password:"root",
-    database:"songdbnorm"
+    database:"songdb"
 })
 
 app.use(express.json())
@@ -20,7 +20,8 @@ app.get("/", (req,res)=>{
 
 // Get Songs With Artist Name
 app.get("/songs", (req,res)=>{
-    const q = "Select s.Song_ID, s.Song_name, s.Release_Date, s.Artist_ID, a.Artist_name FROM song s LEFT JOIN artist a ON s.Artist_ID = a.Artist_ID"
+    const q = "Select s.Song_ID, s.Song_name, s.Release_Date, s.Artist_ID," +
+    " a.Artist_name FROM song s LEFT JOIN artist a ON s.Artist_ID = a.Artist_ID"
     db.query(q,(err,data)=>{
         if(err) return res.json(err)
             return res.json(data)
@@ -356,6 +357,37 @@ app.post("/groups/member", (req,res)=> {
     db.query(q, [values], (err, data) => {
         if (err) return res.json(err);
         return res.json(data);
+    })
+})
+
+app.get("/rock", (req, res)=> {
+    const q = `
+    select Song.Song_ID as 'song_id', Song_name as 'song_name', Artist_Name as 'artist', 
+	Release_date as 'release_date', Genre_name as 'genre'
+    from Song LEFT OUTER JOIN Song_Genres on Song.Song_ID = Song_Genres.Song_ID 
+	Join Artist on Artist.Artist_ID = Song.Artist_ID
+    where Genre_name like '%Rock%';
+    `
+
+    db.query(q,(err,data)=>{
+        if(err) return res.json(err)
+            return res.json(data)
+    })
+})
+
+app.get("/playlist5", (req, res) => {
+    const q =`
+    SELECT Playlist.playlist_name, APP_USER.username
+    FROM PLAYLIST
+    JOIN PLAYLIST_CONTAIN_SONG ON PLAYLIST.Playlist_ID = PLAYLIST_CONTAIN_SONG.Playlist_ID
+    JOIN APP_USER ON PLAYLIST.Creator_ID = APP_USER.User_ID
+    GROUP BY Playlist.Playlist_name, APP_USER.Username
+    HAVING COUNT(PLAYLIST_CONTAIN_SONG.Song_ID) < 5;
+    `
+
+    db.query(q,(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
     })
 })
 
