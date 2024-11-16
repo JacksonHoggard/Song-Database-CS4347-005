@@ -4,7 +4,7 @@ Melody Moodsync - CS4347-005
 Overview
 ----------------
 This project is a song database application developed for CS4347-005 by Lemuel Amouh, Yousuf Stanikzay, Lamisa Tahseen,
-Courtney Dickenson, Angelina John, Jahnavi Dhulipalla, Jack Hoggard, Jalay Shukla, and Preston Hern. It utilizes Node.js for application logic 
+Courtney Dickenson, Angelina John, Jahnavi Dhulipalla, Jack Hoggard, Jalay Shukla, and Preston Hearn. It utilizes Node.js for application logic 
 and MySQL for data storage and management. The application allows users to perform CRUD 
 operations on song-related data.
 
