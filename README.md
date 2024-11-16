@@ -41,6 +41,6 @@ Setup Instructions
      ```
      cd Song-Database-CS4347-005/app/backend
      ```
-   - Run ```npm -v``` to check if npm is installed. If installed, it will show the version you have installed. If not installed, run ```npm install```.
+   - Run ```npm install``` on both the frontend and backend command prompts to install the dependencies.
    - Run ```npm start``` on both command line prompts to start the frontend and backend servers.
    - Open ```http://localhost:3000/``` on your browser to run the application.
